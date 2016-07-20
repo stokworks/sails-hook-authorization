@@ -40,6 +40,10 @@ function encryptPassword(values, next) {
     return next();
   }
 
+  if (values.password.match(/^\$2a\$10\$.{53}$/)) {
+    return next();
+  }
+
   bcrypt.hash(values.password, 10, (error, hash) => {
     if (error) {
       return next(error);
